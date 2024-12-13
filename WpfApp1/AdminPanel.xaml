@@ -1,0 +1,54 @@
+<Window x:Class="WpfApp1.AdminPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Панель администратора" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" 
+                   Text="Управление товарами" 
+                   FontSize="24" 
+                   HorizontalAlignment="Center" 
+                   Margin="10"/>
+
+        <DataGrid x:Name="ProductsDataGrid" 
+                  Grid.Row="1" 
+                  Margin="10" 
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Название" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category}"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
+                <DataGridTextColumn Header="Размер" Binding="{Binding Size}"/>
+                <DataGridTextColumn Header="Цвет" Binding="{Binding Color}"/>
+                <DataGridTextColumn Header="Количество" Binding="{Binding StockQuantity}"/>
+                <DataGridTemplateColumn Header="Действия">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="Изменить" 
+                                        Click="EditProductButton_Click" 
+                                        Margin="0,0,5,0"/>
+                                <Button Content="Удалить" 
+                                        Click="DeleteProductButton_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="Добавить товар" 
+                    Click="AddProductButton_Click" 
+                    Margin="0,0,10,0"/>
+            <Button Content="Выйти" 
+                    Click="LogoutButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

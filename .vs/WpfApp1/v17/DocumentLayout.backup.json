@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\\u041D\u0438\u043A\u0438\u0442\u0430\\Desktop\\\u041B\u0430\u0431\u044B\\3 \u0441\u0435\u043C\u0435\u0441\u0442\u0440\\\u041A\u0443\u0440\u0441\u0430\u0447\\\u0421\u043E\u043D\u044F\\WpfApp1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A282A798-2153-4AF8-AF0C-689DCE7CC5D7}|WpfApp1\\WpfApp1.csproj|c:\\users\\\u043D\u0438\u043A\u0438\u0442\u0430\\desktop\\\u043B\u0430\u0431\u044B\\3 \u0441\u0435\u043C\u0435\u0441\u0442\u0440\\\u043A\u0443\u0440\u0441\u0430\u0447\\\u0441\u043E\u043D\u044F\\wpfapp1\\wpfapp1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A282A798-2153-4AF8-AF0C-689DCE7CC5D7}|WpfApp1\\WpfApp1.csproj|solutionrelative:wpfapp1\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\\u041D\u0438\u043A\u0438\u0442\u0430\\Desktop\\\u041B\u0430\u0431\u044B\\3 \u0441\u0435\u043C\u0435\u0441\u0442\u0440\\\u041A\u0443\u0440\u0441\u0430\u0447\\\u0421\u043E\u043D\u044F\\WpfApp1\\WpfApp1\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "WpfApp1\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\\u041D\u0438\u043A\u0438\u0442\u0430\\Desktop\\\u041B\u0430\u0431\u044B\\3 \u0441\u0435\u043C\u0435\u0441\u0442\u0440\\\u041A\u0443\u0440\u0441\u0430\u0447\\\u0421\u043E\u043D\u044F\\WpfApp1\\WpfApp1\\MainWindow.xaml.cs",
+              "RelativeToolTip": "WpfApp1\\MainWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-13T09:43:15.477Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

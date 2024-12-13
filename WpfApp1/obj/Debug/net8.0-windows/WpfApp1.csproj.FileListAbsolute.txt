@@ -1,0 +1,11 @@
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\AddProductWindow.baml
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\AdminPanel.baml
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\CartWindow.baml
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\EditProductWindow.baml
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\LoginWindow.baml
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\AddProductWindow.g.cs
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\AdminPanel.g.cs
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\CartWindow.g.cs
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\EditProductWindow.g.cs
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\LoginWindow.g.cs
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\WpfApp1\WpfApp1\obj\Debug\net8.0-windows\WpfApp1_MarkupCompile.cache
