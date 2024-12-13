@@ -1,47 +1,122 @@
-﻿using System.Windows;
-using WpfApp1.Services;
-using WpfApp1.Models;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using WpfApp1.Models;
+using WpfApp1.Services;
 
 namespace WpfApp1
 {
     public partial class MainWindow : Window
     {
-        private ProductService _productService;
+        private readonly ProductService _productService;
+        private User? _currentUser;
+        private readonly List<CartItem> _cartItems;
 
-        public MainWindow()
+        public MainWindow(User? currentUser = null)
         {
             InitializeComponent();
             _productService = new ProductService();
+            _currentUser = currentUser;
+            _cartItems = new List<CartItem>();
+
             LoadProducts();
+            UpdateCartItemCount();
+            UpdateAdminButtonVisibility();
         }
 
         private void LoadProducts()
         {
-            ProductsListView.ItemsSource = _productService.GetAllProducts().ToList();
-        }
-
-        private void OpenCartButton_Click(object sender, RoutedEventArgs e)
-        {
-            CartWindow cartWindow = new CartWindow();
-            cartWindow.Show();
-        }
-
-        private void LogoutButton_Click(object sender, RoutedEventArgs e)
-        {
-            LoginWindow loginWindow = new LoginWindow();
-            loginWindow.Show();
-            this.Close();
+            var products = _productService.GetAllProducts().ToList();
+            ProductsListView.ItemsSource = null;
+            ProductsListView.ItemsSource = products;
         }
 
         private void AddToCartButton_Click(object sender, RoutedEventArgs e)
         {
-            var product = (sender as FrameworkElement)?.DataContext as Product;
-            if (product != null)
+            if (sender is Button button)
             {
-                // Логика добавления в корзину
-                MessageBox.Show($"Товар {product.Name} добавлен в корзину");
+                var grid = button.Parent as StackPanel;
+                if (grid == null) return;
+
+                var quantityTextBox = grid.Children.OfType<TextBox>().FirstOrDefault();
+                var product = (button.TemplatedParent as ContentPresenter)?.Content as Product;
+
+                if (quantityTextBox != null && product != null && int.TryParse(quantityTextBox.Text, out int quantity))
+                {
+                    if (quantity <= 0)
+                    {
+                        MessageBox.Show("Пожалуйста, введите положительное количество товара.", 
+                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    if (quantity > product.StockQuantity)
+                    {
+                        MessageBox.Show($"Недостаточно товара на складе. В наличии: {product.StockQuantity}", 
+                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+
+                    var existingItem = _cartItems.FirstOrDefault(i => i.Product?.Id == product.Id);
+                    if (existingItem != null)
+                    {
+                        existingItem.Quantity += quantity;
+                    }
+                    else
+                    {
+                        _cartItems.Add(new CartItem { Product = product, Quantity = quantity });
+                    }
+
+                    UpdateCartItemCount();
+                    quantityTextBox.Text = "1";
+                    MessageBox.Show($"Товар {product.Name} добавлен в корзину", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
+        }
+
+        private void UpdateCartItemCount()
+        {
+            CartItemCountTextBlock.Text = _cartItems.Sum(item => item.Quantity).ToString();
+        }
+
+        private void UpdateAdminButtonVisibility()
+        {
+            AdminPanelButton.Visibility = _currentUser?.IsAdmin == true ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        private void ViewCartButton_Click(object sender, RoutedEventArgs e)
+        {
+            var cartWindow = new CartWindow();
+            cartWindow.SetCartItems(_cartItems);
+            if (cartWindow.ShowDialog() == true)
+            {
+                _cartItems.Clear();
+                UpdateCartItemCount();
+                LoadProducts();
+            }
+        }
+
+        private void AdminPanelButton_Click(object sender, RoutedEventArgs e)
+        {
+            var adminPanel = new AdminPanelWindow();
+            adminPanel.ShowDialog();
+            LoadProducts();
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
+
+        private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !int.TryParse(e.Text, out _);
         }
     }
 }

@@ -2,37 +2,35 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Корзина" Height="450" Width="600">
-    <Grid>
+    <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListView x:Name="CartItemsListView" Grid.Row="0" Margin="10">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Product.Name}" Width="200"/>
-                        <TextBlock Text="{Binding Quantity}" Width="100"/>
-                        <TextBlock Text="{Binding Product.Price, StringFormat='Цена: {0:C}'}" Width="100"/>
-                        <Button Content="Удалить" 
-                                Click="RemoveFromCartButton_Click" 
-                                CommandParameter="{Binding}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+        <ListView x:Name="CartItemsListView" Grid.Row="0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Product.Name}" Width="150"/>
+                    <GridViewColumn Header="Категория" DisplayMemberBinding="{Binding Product.Category}" Width="100"/>
+                    <GridViewColumn Header="Размер" DisplayMemberBinding="{Binding Product.Size}" Width="80"/>
+                    <GridViewColumn Header="Цвет" DisplayMemberBinding="{Binding Product.Color}" Width="80"/>
+                    <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Product.Price, StringFormat={}{0:C}}" Width="80"/>
+                    <GridViewColumn Header="Количество" DisplayMemberBinding="{Binding Quantity}" Width="80"/>
+                </GridView>
+            </ListView.View>
         </ListView>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-            <TextBlock x:Name="TotalPriceTextBlock" 
-                       Text="Итого: 0 руб." 
-                       VerticalAlignment="Center" 
-                       Margin="0,0,20,0"/>
-            <Button Content="Оформить заказ" 
-                    Click="PurchaseButton_Click" 
-                    Background="#4CAF50" 
-                    Foreground="White" 
-                    Padding="10,5"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">
+            <TextBlock Text="Общая сумма: " VerticalAlignment="Center"/>
+            <TextBlock x:Name="TotalAmountTextBlock" VerticalAlignment="Center" FontWeight="Bold"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Удалить" Click="RemoveButton_Click" Width="100" Margin="0,0,10,0"/>
+            <Button Content="Оформить заказ" Click="CheckoutButton_Click" Width="120" Margin="0,0,10,0"/>
+            <Button Content="Закрыть" Click="CloseButton_Click" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

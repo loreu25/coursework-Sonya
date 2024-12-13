@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using WpfApp1.Models;
@@ -7,46 +9,93 @@ namespace WpfApp1
 {
     public partial class CartWindow : Window
     {
-        private ProductService _productService;
-        private UserService _userService;
+        private List<CartItem> _cartItems = new();
+        private readonly ProductService _productService;
+        private decimal _totalAmount;
 
         public CartWindow()
         {
             InitializeComponent();
             _productService = new ProductService();
-            _userService = new UserService();
-            LoadCartItems();
         }
 
-        private void LoadCartItems()
+        public void SetCartItems(List<CartItem> cartItems)
         {
-            // Здесь будет логика загрузки товаров в корзину
-            // Временно используем пустой список
-            CartItemsListView.ItemsSource = Enumerable.Empty<CartItem>();
-            UpdateTotalPrice();
+            if (cartItems == null)
+                return;
+
+            _cartItems = cartItems;
+            CartItemsListView.ItemsSource = _cartItems;
+            UpdateTotalAmount();
         }
 
-        private void UpdateTotalPrice()
+        private void UpdateTotalAmount()
         {
-            // Здесь будет логика подсчета общей стоимости
-            TotalPriceTextBlock.Text = "Итого: 0 руб.";
+            _totalAmount = _cartItems.Sum(item => item.Product?.Price * item.Quantity ?? 0);
+            TotalAmountTextBlock.Text = _totalAmount.ToString("C");
         }
 
-        private void RemoveFromCartButton_Click(object sender, RoutedEventArgs e)
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {
-            var cartItem = (sender as FrameworkElement)?.DataContext as CartItem;
-            if (cartItem != null)
+            var selectedItem = CartItemsListView.SelectedItem as CartItem;
+            if (selectedItem != null)
             {
-                // Логика удаления товара из корзины
-                MessageBox.Show($"Товар {cartItem.Product.Name} удален из корзины");
+                _cartItems.Remove(selectedItem);
+                CartItemsListView.ItemsSource = null;
+                CartItemsListView.ItemsSource = _cartItems;
+                UpdateTotalAmount();
             }
         }
 
-        private void PurchaseButton_Click(object sender, RoutedEventArgs e)
+        private void CheckoutButton_Click(object sender, RoutedEventArgs e)
         {
-            // Логика оформления заказа
-            MessageBox.Show("Заказ оформлен!");
-            this.Close();
+            try
+            {
+                // Проверяем наличие товаров
+                foreach (var item in _cartItems)
+                {
+                    if (item.Product == null) continue;
+                    
+                    var currentProduct = _productService.GetProductById(item.Product.Id);
+                    if (currentProduct == null || currentProduct.StockQuantity < item.Quantity)
+                    {
+                        MessageBox.Show($"Товар '{item.Product.Name}' недоступен в запрошенном количестве.", 
+                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                }
+
+                // Обновляем количество товаров на складе
+                foreach (var item in _cartItems)
+                {
+                    if (item.Product == null) continue;
+                    _productService.UpdateStock(item.Product.Id, item.Quantity);
+                }
+
+                MessageBox.Show($"Заказ оформлен на сумму {_totalAmount:C}", 
+                    "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                DialogResult = true;
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при оформлении заказа: {ex.Message}", 
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+            Close();
+        }
+    }
+
+    public class CartItem
+    {
+        public int Id { get; set; }
+        public Product? Product { get; set; }
+        public int Quantity { get; set; }
     }
 }
