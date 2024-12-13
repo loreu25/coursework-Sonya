@@ -47,6 +47,19 @@ namespace WpfApp1
             }
         }
 
+        private void RemoveFromCartButton_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as FrameworkElement;
+            var cartItem = button?.DataContext as CartItem;
+            if (cartItem != null)
+            {
+                _cartItems.Remove(cartItem);
+                CartItemsListView.ItemsSource = null;
+                CartItemsListView.ItemsSource = _cartItems;
+                UpdateTotalAmount();
+            }
+        }
+
         private void CheckoutButton_Click(object sender, RoutedEventArgs e)
         {
             try

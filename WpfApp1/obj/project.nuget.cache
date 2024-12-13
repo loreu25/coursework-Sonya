@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ZSmFwAH0HB4=",
+  "dgSpecHash": "kaxQJHXN1MI=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Никита\\Desktop\\Лабы\\3 семестр\\Курсач\\Соня\\WpfApp1\\WpfApp1.csproj",
+  "projectFilePath": "C:\\Users\\Никита\\Desktop\\Лабы\\3 семестр\\Курсач\\Sonya1\\coursework-Sonya\\WpfApp1\\WpfApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Никита\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Никита\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\7.0.0\\microsoft.bcl.asyncinterfaces.7.0.0.nupkg.sha512",
