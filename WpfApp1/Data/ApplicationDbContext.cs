@@ -11,7 +11,7 @@ namespace WpfApp1.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=clothingstore.db");
+            optionsBuilder.UseSqlite("Data Source=Data/clothingstore.db");
         }
     }
 }

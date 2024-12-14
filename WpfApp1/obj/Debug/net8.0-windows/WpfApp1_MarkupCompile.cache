@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Sonya1\coursework-Sonya\WpfApp1\obj\Debug\net8.0-windows\
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\coursework-Sonya\WpfApp1\obj\Debug\net8.0-windows\
 WpfApp1
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Sonya1\coursework-Sonya\WpfApp1\App.xaml
-8-571726861
+C:\Users\Никита\Desktop\Лабы\3 семестр\Курсач\Соня\coursework-Sonya\WpfApp1\App.xaml
+71516384855
 
-20-1225513845
+19-892783370
 217-527808221
-AddProductWindow.xaml;AdminPanel.xaml;AdminPanelWindow.xaml;CartWindow.xaml;EditProductWindow.xaml;LoginWindow.xaml;MainWindow.xaml;ProductWindow.xaml;
+Views\AddProductWindow.xaml;Views\AdminPanelWindow.xaml;Views\CartWindow.xaml;Views\EditProductWindow.xaml;Views\LoginWindow.xaml;Views\MainWindow.xaml;Views\ProductWindow.xaml;
 
 False
 

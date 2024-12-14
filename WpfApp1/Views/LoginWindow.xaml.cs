@@ -7,7 +7,7 @@ namespace WpfApp1
 {
     public partial class LoginWindow : Window
     {
-        private readonly UserService _userService = null!;
+        private readonly UserService _userService;
 
         public LoginWindow()
         {

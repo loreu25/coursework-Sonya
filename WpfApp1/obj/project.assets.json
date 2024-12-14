@@ -3236,11 +3236,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Никита\\Desktop\\Лабы\\3 семестр\\Курсач\\Sonya1\\coursework-Sonya\\WpfApp1\\WpfApp1.csproj",
+      "projectUniqueName": "C:\\Users\\Никита\\Desktop\\Лабы\\3 семестр\\Курсач\\Соня\\coursework-Sonya\\WpfApp1\\WpfApp1.csproj",
       "projectName": "WpfApp1",
-      "projectPath": "C:\\Users\\Никита\\Desktop\\Лабы\\3 семестр\\Курсач\\Sonya1\\coursework-Sonya\\WpfApp1\\WpfApp1.csproj",
+      "projectPath": "C:\\Users\\Никита\\Desktop\\Лабы\\3 семестр\\Курсач\\Соня\\coursework-Sonya\\WpfApp1\\WpfApp1.csproj",
       "packagesPath": "C:\\Users\\Никита\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Никита\\Desktop\\Лабы\\3 семестр\\Курсач\\Sonya1\\coursework-Sonya\\WpfApp1\\obj\\",
+      "outputPath": "C:\\Users\\Никита\\Desktop\\Лабы\\3 семестр\\Курсач\\Соня\\coursework-Sonya\\WpfApp1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Никита\\AppData\\Roaming\\NuGet\\NuGet.Config",

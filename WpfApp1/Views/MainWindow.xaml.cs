@@ -61,17 +61,24 @@ namespace WpfApp1
                         return;
                     }
 
-                    if (quantity > product.StockQuantity)
+                    // Проверяем общее количество с учетом уже добавленного в корзину
+                    var existingItem = _cartItems.FirstOrDefault(i => i.Product?.Id == product.Id);
+                    int totalQuantity = quantity + (existingItem?.Quantity ?? 0);
+
+                    if (totalQuantity > product.StockQuantity)
                     {
-                        MessageBox.Show($"Недостаточно товара на складе. В наличии: {product.StockQuantity}", 
+                        int remainingQuantity = product.StockQuantity - (existingItem?.Quantity ?? 0);
+                        MessageBox.Show(
+                            remainingQuantity > 0 
+                                ? $"Недостаточно товара на складе. Можно добавить еще: {remainingQuantity} шт." 
+                                : "Весь доступный товар уже в корзине", 
                             "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
-                    var existingItem = _cartItems.FirstOrDefault(i => i.Product?.Id == product.Id);
                     if (existingItem != null)
                     {
-                        existingItem.Quantity += quantity;
+                        existingItem.Quantity = totalQuantity;
                     }
                     else
                     {

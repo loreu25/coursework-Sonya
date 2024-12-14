@@ -5,6 +5,9 @@ using System.Windows.Input;
 using System.Linq;
 using WpfApp1.Models;
 using WpfApp1.Services;
+using Microsoft.Win32;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace WpfApp1
 {
@@ -12,6 +15,7 @@ namespace WpfApp1
     {
         private readonly ProductService _productService;
         private readonly Product? _existingProduct;
+        private string? _selectedImagePath;
 
         public ProductWindow(Product? product = null)
         {
@@ -21,14 +25,13 @@ namespace WpfApp1
 
             if (_existingProduct != null)
             {
-                // Режим редактирования
                 Title = "Редактирование товара";
                 LoadProductData();
             }
             else
             {
-                // Режим добавления
                 Title = "Новый товар";
+                AddDatePicker.SelectedDate = DateTime.Now;
             }
         }
 
@@ -42,16 +45,64 @@ namespace WpfApp1
             SizeTextBox.Text = _existingProduct.Size;
             ColorTextBox.Text = _existingProduct.Color;
             PriceTextBox.Text = _existingProduct.Price.ToString();
-            StockQuantityTextBox.Text = _existingProduct.StockQuantity.ToString();
+            QuantityTextBox.Text = _existingProduct.StockQuantity.ToString();
             DescriptionTextBox.Text = _existingProduct.Description;
-            DateAddedPicker.SelectedDate = _existingProduct.DateAdded;
+            AddDatePicker.SelectedDate = _existingProduct.DateAdded;
+
+            if (!string.IsNullOrEmpty(_existingProduct.ImagePath))
+            {
+                _selectedImagePath = _existingProduct.ImagePath;
+                LoadImagePreview(_selectedImagePath);
+            }
+        }
+
+        private void SelectImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image files (*.jpg, *.jpeg, *.png) | *.jpg; *.jpeg; *.png",
+                Title = "Выберите изображение товара"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string sourceFile = openFileDialog.FileName;
+                string fileName = Path.GetFileName(sourceFile);
+                string targetDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images");
+                string targetPath = Path.Combine(targetDirectory, fileName);
+
+                Directory.CreateDirectory(targetDirectory);
+                File.Copy(sourceFile, targetPath, true);
+
+                _selectedImagePath = targetPath;
+                LoadImagePreview(targetPath);
+            }
+        }
+
+        private void LoadImagePreview(string imagePath)
+        {
+            try
+            {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.UriSource = new Uri(imagePath);
+                bitmap.EndInit();
+                PreviewImage.Source = bitmap;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при загрузке изображения: {ex.Message}", 
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateInput())
             {
-                MessageBox.Show("Пожалуйста, заполните все поля корректно.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Пожалуйста, заполните все поля корректно.", 
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
@@ -63,9 +114,10 @@ namespace WpfApp1
                 product.Size = SizeTextBox.Text;
                 product.Color = ColorTextBox.Text;
                 product.Description = DescriptionTextBox.Text;
-                product.DateAdded = DateAddedPicker.SelectedDate ?? DateTime.Now;
+                product.DateAdded = AddDatePicker.SelectedDate ?? DateTime.Now;
                 product.Price = decimal.Parse(PriceTextBox.Text);
-                product.StockQuantity = int.Parse(StockQuantityTextBox.Text);
+                product.StockQuantity = int.Parse(QuantityTextBox.Text);
+                product.ImagePath = _selectedImagePath;
 
                 if (_existingProduct != null)
                 {
@@ -95,7 +147,7 @@ namespace WpfApp1
             if (string.IsNullOrWhiteSpace(DescriptionTextBox.Text)) return false;
 
             if (!decimal.TryParse(PriceTextBox.Text, out decimal price) || price <= 0) return false;
-            if (!int.TryParse(StockQuantityTextBox.Text, out int quantity) || quantity < 0) return false;
+            if (!int.TryParse(QuantityTextBox.Text, out int quantity) || quantity < 0) return false;
 
             return true;
         }

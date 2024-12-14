@@ -3,124 +3,125 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="LoginWindow.xaml">
     <Application.Resources>
-        <!-- Эффекты теней -->
-        <DropShadowEffect x:Key="MaterialDesignElevationShadow2"
-                         BlurRadius="8"
-                         Direction="270"
-                         ShadowDepth="2"
-                         Color="#CCCCCC"/>
-
-        <!-- Стиль для больших кнопок -->
-        <Style x:Key="LargeButton" TargetType="Button">
+        <!-- Base Button Style -->
+        <Style x:Key="BaseButton" TargetType="Button">
             <Setter Property="Background" Value="#2196F3"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Padding" Value="25,15"/>
-            <Setter Property="MinWidth" Value="150"/>
-            <Setter Property="MinHeight" Value="45"/>
-            <Setter Property="Margin" Value="5"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,5"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6">
+                                CornerRadius="4">
                             <ContentPresenter HorizontalAlignment="Center" 
                                             VerticalAlignment="Center"/>
                         </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#1976D2"/>
-                </Trigger>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="#BDBDBD"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <!-- Стиль для текстовых полей -->
-        <Style x:Key="ModernTextBox" TargetType="TextBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="#212121"/>
-            <Setter Property="CaretBrush" Value="#212121"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="MinWidth" Value="200"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="TextBox">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderThickness="1"
-                                BorderBrush="#BDBDBD"
-                                CornerRadius="4">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                        Margin="{TemplateBinding Padding}"
-                                        VerticalAlignment="Center"/>
-                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#1976D2"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#0D47A1"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#BDBDBD"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
-        <!-- Стиль для заголовков -->
-        <Style x:Key="HeaderText" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="0,0,0,20"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="Foreground" Value="#212121"/>
+        <!-- Large Button Style -->
+        <Style x:Key="LargeButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Padding" Value="20,10"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Height" Value="45"/>
         </Style>
-        
-        <!-- Стиль для полей пароля -->
-        <Style x:Key="ModernPasswordBox" TargetType="PasswordBox">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="CaretBrush" Value="Black"/>
-            <Setter Property="BorderBrush" Value="#BDBDBD"/>
-            <Setter Property="Padding" Value="10,8"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="MinWidth" Value="200"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="PasswordBox">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderThickness="1"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                CornerRadius="4">
-                            <ScrollViewer x:Name="PART_ContentHost"
-                                        Margin="{TemplateBinding Padding}"
-                                        VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        
-        <Style x:Key="GrayButton" TargetType="Button" BasedOn="{StaticResource LargeButton}">
+
+        <!-- Gray Button Style -->
+        <Style x:Key="GrayButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
             <Setter Property="Background" Value="#757575"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#616161"/>
                 </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="DeleteButton" TargetType="Button" BasedOn="{StaticResource LargeButton}">
-            <Setter Property="Background" Value="#f44336"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#d32f2f"/>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#424242"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
+
+        <!-- Delete Button Style -->
+        <Style x:Key="DeleteButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="#F44336"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#D32F2F"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#B71C1C"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Text Box Style -->
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#F5F5F5"/>
+            <Setter Property="Foreground" Value="#212121"/>
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="40"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#2196F3"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#1976D2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Password Box Style -->
+        <Style x:Key="ModernPasswordBox" TargetType="PasswordBox">
+            <Setter Property="Background" Value="#F5F5F5"/>
+            <Setter Property="Foreground" Value="#212121"/>
+            <Setter Property="BorderBrush" Value="#BDBDBD"/>
+            <Setter Property="BorderThickness" Value="0,0,0,2"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Height" Value="40"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="#2196F3"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#1976D2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Header Text Style -->
+        <Style x:Key="HeaderText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#212121"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,20"/>
+        </Style>
+
+        <!-- Material Design Shadow Effect -->
+        <DropShadowEffect x:Key="MaterialDesignElevationShadow2" 
+                         BlurRadius="8" 
+                         Direction="270" 
+                         ShadowDepth="2" 
+                         Color="#1F000000"/>
     </Application.Resources>
 </Application>
