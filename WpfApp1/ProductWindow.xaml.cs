@@ -1,6 +1,8 @@
 using System;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Linq;
 using WpfApp1.Models;
 using WpfApp1.Services;
 
@@ -35,11 +37,14 @@ namespace WpfApp1
             if (_existingProduct == null) return;
 
             NameTextBox.Text = _existingProduct.Name;
-            CategoryTextBox.Text = _existingProduct.Category;
+            CategoryComboBox.SelectedItem = CategoryComboBox.Items.Cast<ComboBoxItem>()
+                .FirstOrDefault(item => item.Content.ToString() == _existingProduct.Category);
             SizeTextBox.Text = _existingProduct.Size;
             ColorTextBox.Text = _existingProduct.Color;
             PriceTextBox.Text = _existingProduct.Price.ToString();
             StockQuantityTextBox.Text = _existingProduct.StockQuantity.ToString();
+            DescriptionTextBox.Text = _existingProduct.Description;
+            DateAddedPicker.SelectedDate = _existingProduct.DateAdded;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -52,32 +57,23 @@ namespace WpfApp1
 
             try
             {
+                var product = _existingProduct ?? new Product();
+                product.Name = NameTextBox.Text;
+                product.Category = (CategoryComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? string.Empty;
+                product.Size = SizeTextBox.Text;
+                product.Color = ColorTextBox.Text;
+                product.Description = DescriptionTextBox.Text;
+                product.DateAdded = DateAddedPicker.SelectedDate ?? DateTime.Now;
+                product.Price = decimal.Parse(PriceTextBox.Text);
+                product.StockQuantity = int.Parse(StockQuantityTextBox.Text);
+
                 if (_existingProduct != null)
                 {
-                    // Обновление существующего товара
-                    _existingProduct.Name = NameTextBox.Text;
-                    _existingProduct.Category = CategoryTextBox.Text;
-                    _existingProduct.Size = SizeTextBox.Text;
-                    _existingProduct.Color = ColorTextBox.Text;
-                    _existingProduct.Price = decimal.Parse(PriceTextBox.Text);
-                    _existingProduct.StockQuantity = int.Parse(StockQuantityTextBox.Text);
-
-                    _productService.UpdateProduct(_existingProduct);
+                    _productService.UpdateProduct(product);
                 }
                 else
                 {
-                    // Создание нового товара
-                    var newProduct = new Product
-                    {
-                        Name = NameTextBox.Text,
-                        Category = CategoryTextBox.Text,
-                        Size = SizeTextBox.Text,
-                        Color = ColorTextBox.Text,
-                        Price = decimal.Parse(PriceTextBox.Text),
-                        StockQuantity = int.Parse(StockQuantityTextBox.Text)
-                    };
-
-                    _productService.AddProduct(newProduct);
+                    _productService.AddProduct(product);
                 }
 
                 DialogResult = true;
@@ -85,16 +81,18 @@ namespace WpfApp1
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Ошибка при сохранении товара: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Ошибка при сохранении товара: {ex.Message}", 
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private bool ValidateInput()
         {
             if (string.IsNullOrWhiteSpace(NameTextBox.Text)) return false;
-            if (string.IsNullOrWhiteSpace(CategoryTextBox.Text)) return false;
+            if (CategoryComboBox.SelectedItem == null) return false;
             if (string.IsNullOrWhiteSpace(SizeTextBox.Text)) return false;
             if (string.IsNullOrWhiteSpace(ColorTextBox.Text)) return false;
+            if (string.IsNullOrWhiteSpace(DescriptionTextBox.Text)) return false;
 
             if (!decimal.TryParse(PriceTextBox.Text, out decimal price) || price <= 0) return false;
             if (!int.TryParse(StockQuantityTextBox.Text, out int quantity) || quantity < 0) return false;

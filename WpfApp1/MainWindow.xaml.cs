@@ -31,6 +31,13 @@ namespace WpfApp1
         private void LoadProducts()
         {
             var products = _productService.GetAllProducts().ToList();
+            
+            // Фильтруем товары для обычных пользователей
+            if (_currentUser?.IsAdmin != true)
+            {
+                products = products.Where(p => p.StockQuantity > 0).ToList();
+            }
+            
             ProductsListView.ItemsSource = null;
             ProductsListView.ItemsSource = products;
         }

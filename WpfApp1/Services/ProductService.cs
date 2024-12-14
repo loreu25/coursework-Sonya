@@ -15,8 +15,24 @@ namespace WpfApp1.Services
             // Добавляем тестовые товары, если их нет
             if (!_context.Products.Any())
             {
-                AddProduct(new Product { Name = "Футболка", Price = 999.99m, Category = "Одежда", Size = "M", Color = "Белый", StockQuantity = 10 });
-                AddProduct(new Product { Name = "Джинсы", Price = 2999.99m, Category = "Одежда", Size = "L", Color = "Синий", StockQuantity = 5 });
+                AddProduct(new Product { 
+                    Name = "Футболка", 
+                    Price = 999.99m, 
+                    Category = "Одежда", 
+                    Size = "M", 
+                    Color = "Белый", 
+                    StockQuantity = 10,
+                    Description = "Классическая футболка из 100% хлопка. Идеально подходит для повседневной носки. Прочная, дышащая ткань обеспечивает комфорт в течение всего дня."
+                });
+                AddProduct(new Product { 
+                    Name = "Джинсы", 
+                    Price = 2999.99m, 
+                    Category = "Одежда", 
+                    Size = "L", 
+                    Color = "Синий", 
+                    StockQuantity = 5,
+                    Description = "Стильные джинсы прямого кроя. Изготовлены из высококачественного денима с добавлением эластана для большего комфорта. Универсальный синий цвет."
+                });
             }
         }
 
