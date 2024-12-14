@@ -3,7 +3,7 @@ using System.Windows;
 using WpfApp1.Models;
 using WpfApp1.Services;
 
-namespace WpfApp1
+namespace WpfApp1.Views
 {
     public partial class AdminPanelWindow : Window
     {

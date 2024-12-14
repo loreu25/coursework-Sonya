@@ -7,8 +7,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using WpfApp1.Models;
 using WpfApp1.Services;
+using WpfApp1.Views;
 
-namespace WpfApp1
+namespace WpfApp1.Views
 {
     public partial class MainWindow : Window
     {

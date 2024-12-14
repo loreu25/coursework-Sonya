@@ -9,7 +9,7 @@ using Microsoft.Win32;
 using System.IO;
 using System.Windows.Media.Imaging;
 
-namespace WpfApp1
+namespace WpfApp1.Views
 {
     public partial class ProductWindow : Window
     {

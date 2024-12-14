@@ -3,7 +3,7 @@ using System.Windows;
 using WpfApp1.Services;
 using WpfApp1.Models;
 
-namespace WpfApp1
+namespace WpfApp1.Views
 {
     public partial class LoginWindow : Window
     {
