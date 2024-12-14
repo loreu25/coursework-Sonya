@@ -51,7 +51,7 @@
                                              FontSize="16"
                                              Foreground="#212121"/>
                                 </StackPanel>
-                                <TextBlock Text="{Binding Product.Price, StringFormat='Цена: {0:C}'}"
+                                <TextBlock Text="{Binding Product.Price, StringFormat='{}{0:N0} ₽'}"
                                          Foreground="#2196F3"
                                          FontWeight="Bold"
                                          FontSize="18"
@@ -74,8 +74,9 @@
 
                             <Button Grid.Column="2"
                                     Content="Удалить"
-                                    Style="{StaticResource LargeButton}"
-                                    Background="#F44336"
+                                    Style="{StaticResource DeleteButton}"
+                                    Width="150"
+                                    Height="45"
                                     Click="RemoveFromCartButton_Click"
                                     VerticalAlignment="Center"/>
                         </Grid>
@@ -125,11 +126,14 @@
                           Orientation="Horizontal">
                     <Button Content="Оформить заказ"
                             Style="{StaticResource LargeButton}"
+                            Width="200"
+                            Height="45"
                             Click="CheckoutButton_Click"
                             Margin="0,0,15,0"/>
                     <Button Content="Закрыть"
-                            Style="{StaticResource LargeButton}"
-                            Background="#757575"
+                            Style="{StaticResource GrayButton}"
+                            Width="200"
+                            Height="45"
                             Click="CloseButton_Click"/>
                 </StackPanel>
             </Grid>

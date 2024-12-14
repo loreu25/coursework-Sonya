@@ -32,7 +32,7 @@ namespace WpfApp1
         private void UpdateTotalAmount()
         {
             _totalAmount = _cartItems.Sum(item => item.Product?.Price * item.Quantity ?? 0);
-            TotalAmountTextBlock.Text = _totalAmount.ToString("C");
+            TotalAmountTextBlock.Text = $"{_totalAmount:N0} ₽";
         }
 
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
@@ -85,7 +85,7 @@ namespace WpfApp1
                     _productService.UpdateStock(item.Product.Id, item.Quantity);
                 }
 
-                MessageBox.Show($"Заказ оформлен на сумму {_totalAmount:C}", 
+                MessageBox.Show($"Заказ оформлен на сумму {_totalAmount:N0} ₽", 
                     "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                 
                 DialogResult = true;

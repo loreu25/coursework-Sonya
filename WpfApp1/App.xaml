@@ -103,5 +103,24 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <Style x:Key="GrayButton" TargetType="Button" BasedOn="{StaticResource LargeButton}">
+            <Setter Property="Background" Value="#757575"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#616161"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DeleteButton" TargetType="Button" BasedOn="{StaticResource LargeButton}">
+            <Setter Property="Background" Value="#f44336"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#d32f2f"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
     </Application.Resources>
 </Application>

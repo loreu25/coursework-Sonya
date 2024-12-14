@@ -20,11 +20,16 @@
                         Margin="0,0,0,20">
                 <Button Content="Добавить товар"
                         Style="{StaticResource LargeButton}"
+                        MinWidth="200"
+                        Height="45"
+                        Padding="25,10"
                         Click="AddProductButton_Click"
                         Margin="0,0,15,0"/>
                 <Button Content="Назад"
-                        Style="{StaticResource LargeButton}"
-                        Background="#757575"
+                        Style="{StaticResource GrayButton}"
+                        MinWidth="200"
+                        Height="45"
+                        Padding="25,10"
                         Click="BackButton_Click"/>
             </StackPanel>
         </StackPanel>
@@ -64,7 +69,7 @@
                                              FontSize="16"
                                              Foreground="#212121"/>
                                 </StackPanel>
-                                <TextBlock Text="{Binding Price, StringFormat='Цена: {0:C}'}"
+                                <TextBlock Text="{Binding Price, StringFormat='{}{0:N0} ₽'}"
                                          Foreground="#2196F3"
                                          FontWeight="Bold"
                                          FontSize="18"
@@ -79,11 +84,14 @@
                                       VerticalAlignment="Center">
                                 <Button Content="Редактировать"
                                         Style="{StaticResource LargeButton}"
+                                        Width="150"
+                                        Height="45"
                                         Click="EditProductButton_Click"
                                         Margin="0,0,0,10"/>
                                 <Button Content="Удалить"
-                                        Style="{StaticResource LargeButton}"
-                                        Background="#f44336"
+                                        Style="{StaticResource DeleteButton}"
+                                        Width="150"
+                                        Height="45"
                                         Click="DeleteProductButton_Click"/>
                             </StackPanel>
                         </Grid>
